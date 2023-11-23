@@ -22,4 +22,7 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Alura.Estacionamento\Alura.Estacionamento.csproj" />
+  </ItemGroup>
 </Project>
