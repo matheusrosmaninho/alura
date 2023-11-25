@@ -95,6 +95,10 @@ namespace Alura.Estacionamento.Modelos
            Proprietario = proprietario;
         }
 
-       
+
+        public void AlterarDados(Veiculo veiculoAterado)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

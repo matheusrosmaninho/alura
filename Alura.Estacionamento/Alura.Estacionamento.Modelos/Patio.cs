@@ -104,4 +104,14 @@ public class Patio
             select veiculo).SingleOrDefault();
         return encontrado;
     }
+
+    public Veiculo AlteraDadosVeiculo(Veiculo veiculoAterado)
+    {
+        var veiculoTemp = (from veiculo in this.Veiculos
+            where veiculo.Placa == veiculoAterado.Placa
+            select veiculo).SingleOrDefault();
+        
+        veiculoTemp.AlterarDados(veiculoAterado);
+        return veiculoTemp;
+    }
 }

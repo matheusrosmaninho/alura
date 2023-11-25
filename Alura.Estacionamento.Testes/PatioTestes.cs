@@ -92,4 +92,26 @@ public class PatioTestes
         // Assert
         Assert.Equal(placa, consultado.Placa);
     }
+
+    [Fact]
+    public void AlterarDadosVeiculo()
+    {
+        var veiculo = new Veiculo();
+        var estacionamento = new Patio();
+        veiculo.Proprietario = "André Silva";
+        veiculo.Tipo = TipoVeiculo.Automovel;
+        veiculo.Cor = "Verde";
+        veiculo.Modelo = "Fusca";
+        veiculo.Placa = "asd-9999";
+        estacionamento.RegistrarEntradaVeiculo(veiculo);
+
+        var veiculoAterado = new Veiculo();
+        veiculoAterado.Proprietario = "André Silva";
+        veiculoAterado.Tipo = TipoVeiculo.Automovel;
+        veiculoAterado.Cor = "Azul";
+        veiculoAterado.Modelo = "Mercedes";
+        veiculoAterado.Placa = "asd-9999";
+
+        Veiculo alterado = estacionamento.AlteraDadosVeiculo(veiculoAterado);
+    }
 }
