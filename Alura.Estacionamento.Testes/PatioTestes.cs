@@ -8,12 +8,16 @@ public class PatioTestes : IDisposable
 {
     private Veiculo veiculo;
 
+    private Operador operador;
+
     public ITestOutputHelper SaidaConsoleTeste;
 
-    public PatioTestes(ITestOutputHelper _saidaConsoleTeste)
+    public PatioTestes(ITestOutputHelper saidaConsoleTeste)
     {
-        SaidaConsoleTeste = _saidaConsoleTeste;
+        SaidaConsoleTeste = saidaConsoleTeste;
         veiculo = new Veiculo();
+        operador = new Operador();
+        operador.Nome = "Pedro Fagundes";
     }
 
     [Fact]
@@ -21,6 +25,8 @@ public class PatioTestes : IDisposable
     {
         // Given
         var estacionamento = new Patio();
+
+        estacionamento.OperadorPatio = operador;
         veiculo.Proprietario = "André Silva";
         veiculo.Tipo = TipoVeiculo.Automovel;
         veiculo.Cor = "Verde";
@@ -51,6 +57,8 @@ public class PatioTestes : IDisposable
     {
         // Arrange
         var estacionamento = new Patio();
+        estacionamento.OperadorPatio = operador;
+
         veiculo.Proprietario = proprietario;
         veiculo.Placa = placa;
         veiculo.Cor = cor;
@@ -77,6 +85,8 @@ public class PatioTestes : IDisposable
     {
         // Arrange
         var estacionamento = new Patio();
+        estacionamento.OperadorPatio = operador;
+
         veiculo.Proprietario = proprietario;
         veiculo.Placa = placa;
         veiculo.Cor = cor;
@@ -95,6 +105,8 @@ public class PatioTestes : IDisposable
     public void AlterarDadosDoProprioVeiculo()
     {
         var estacionamento = new Patio();
+        estacionamento.OperadorPatio = operador;
+        
         veiculo.Proprietario = "André Silva";
         veiculo.Tipo = TipoVeiculo.Automovel;
         veiculo.Cor = "Verde";

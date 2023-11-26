@@ -16,6 +16,8 @@ public class Patio
     private List<Veiculo> veiculos;
     private double faturado;
 
+    public Operador OperadorPatio { get; set; }
+
     public double Faturado
     {
         get => faturado;
@@ -109,7 +111,7 @@ public class Patio
             where veiculo.Placa == veiculoAterado.Placa
             select veiculo).SingleOrDefault();
 
-        veiculoTemp.AlterarDados(veiculoAterado);
+        veiculoTemp!.AlterarDados(veiculoAterado);
         return veiculoTemp;
     }
 
@@ -120,7 +122,8 @@ public class Patio
         string ticket = "### Tkcket estacionamento alura ###" +
                         $">>> Identificador: {veiculo.IdTicket}\n" +
                         $">>> Data/hora de entrada: {DateTime.Now} \n" +
-                        $">>> Placa do veiculo: {veiculo.Placa}";
+                        $">>> Placa do veiculo: {veiculo.Placa}" +
+                        $"Operador patio: {OperadorPatio.Nome}";
 
         veiculo.Ticket = ticket;
         return ticket;
