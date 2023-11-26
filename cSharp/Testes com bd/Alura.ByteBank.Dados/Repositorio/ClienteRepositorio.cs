@@ -13,10 +13,12 @@ namespace Alura.ByteBank.Dados.Repositorio
     public class ClienteRepositorio : IClienteRepositorio
     {
         private readonly ByteBankContexto _contexto;
+
         public ClienteRepositorio()
         {
             _contexto = new ByteBankContexto();
         }
+
         public bool Adicionar(Cliente cliente)
         {
             try
@@ -26,25 +28,27 @@ namespace Alura.ByteBank.Dados.Repositorio
 
                 return true;
             }
-            catch{
+            catch
+            {
                 return false;
             }
         }
 
-        public bool Atualizar(int id,Cliente cliente)
+        public bool Atualizar(int id, Cliente cliente)
         {
-            
             try
             {
                 if (id != cliente.Id)
                 {
                     return false;
                 }
+
                 _contexto.Entry(cliente).State = EntityState.Modified;
                 _contexto.SaveChanges();
                 return true;
             }
-            catch{
+            catch
+            {
                 return false;
             }
         }
@@ -59,11 +63,13 @@ namespace Alura.ByteBank.Dados.Repositorio
                 {
                     return false;
                 }
+
                 _contexto.Clientes.Remove(cliente);
                 _contexto.SaveChanges();
                 return true;
             }
-            catch{
+            catch
+            {
                 return false;
             }
         }
@@ -73,15 +79,16 @@ namespace Alura.ByteBank.Dados.Repositorio
             try
             {
                 var cliente = _contexto.Clientes.FirstOrDefault(p => p.Id == id);
-                if(cliente == null)
+                if (cliente == null)
                 {
                     return null;
                 }
+
                 return cliente;
             }
             catch
             {
-               throw new Exception($"Erro ao obter cliente com Id = {id}.") ;
+                throw new Exception($"Erro ao obter cliente com Id = {id}.");
             }
         }
 
@@ -94,6 +101,7 @@ namespace Alura.ByteBank.Dados.Repositorio
                 {
                     return null;
                 }
+
                 return cliente;
             }
             catch
@@ -108,7 +116,7 @@ namespace Alura.ByteBank.Dados.Repositorio
             {
                 return _contexto.Clientes.ToList();
             }
-            catch
+            catch (Exception exception)
             {
                 throw new Exception("Erro ao obter clientes");
             }
