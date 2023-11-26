@@ -68,7 +68,7 @@ public class PatioTestes : IDisposable
 
     [Theory]
     [InlineData("André Silva", "ASD-1498", "preto", "Gol")]
-    public void LocalizaVeiculoNoPatioBaseadoNaPlaca(
+    public void LocalizaVeiculoNoPatioBaseadoNoIdTicket(
         string proprietario,
         string placa,
         string cor,
@@ -85,10 +85,10 @@ public class PatioTestes : IDisposable
         estacionamento.RegistrarEntradaVeiculo(veiculo);
 
         // Act
-        var consultado = estacionamento.PesquisaVeiculo(veiculo.Placa);
+        var consultado = estacionamento.PesquisaVeiculo(veiculo.IdTicket);
 
         // Assert
-        Assert.Equal(placa, consultado.Placa);
+        Assert.Contains("### Tkcket estacionamento alura ###", consultado.Ticket);
     }
 
     [Fact]

@@ -46,6 +46,7 @@ public class Patio
     public void RegistrarEntradaVeiculo(Veiculo veiculo)
     {
         veiculo.HoraEntrada = DateTime.Now;
+        this.GerarTicket(veiculo);
         this.Veiculos.Add(veiculo);
     }
 
@@ -96,11 +97,11 @@ public class Patio
 
         return informacao;
     }
-    
-    public Veiculo PesquisaVeiculo(string placa)
+
+    public Veiculo PesquisaVeiculo(string idTicket)
     {
         var encontrado = (from veiculo in this.Veiculos
-            where veiculo.Placa == placa
+            where veiculo.IdTicket == idTicket
             select veiculo).SingleOrDefault();
         return encontrado;
     }
@@ -110,8 +111,21 @@ public class Patio
         var veiculoTemp = (from veiculo in this.Veiculos
             where veiculo.Placa == veiculoAterado.Placa
             select veiculo).SingleOrDefault();
-        
+
         veiculoTemp.AlterarDados(veiculoAterado);
         return veiculoTemp;
+    }
+
+    private string GerarTicket(Veiculo veiculo)
+    {
+        veiculo.IdTicket = new Guid().ToString().Substring(0, 5);
+        
+        string ticket = "### Tkcket estacionamento alura ###" +
+                        $">>> Identificador: {veiculo.IdTicket}\n" +
+                        $">>> Data/hora de entrada: {DateTime.Now} \n" +
+                        $">>> Placa do veiculo: {veiculo.Placa}";
+
+        veiculo.Ticket = ticket;
+        return ticket;
     }
 }
