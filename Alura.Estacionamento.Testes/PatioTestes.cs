@@ -1,15 +1,25 @@
 using Alura.Estacionamento.Alura.Estacionamento.Modelos;
 using Alura.Estacionamento.Modelos;
+using Xunit.Abstractions;
 
 namespace Alura.Estacionamento.Testes;
 
-public class PatioTestes
+public class PatioTestes : IDisposable
 {
+    private Veiculo veiculo;
+
+    public ITestOutputHelper SaidaConsoleTeste;
+
+    public PatioTestes(ITestOutputHelper _saidaConsoleTeste)
+    {
+        SaidaConsoleTeste = _saidaConsoleTeste;
+        veiculo = new Veiculo();
+    }
+
     [Fact]
     public void ValidaFaturamentoDoEstacionamentoComVeiculo()
     {
         // Given
-        var veiculo = new Veiculo();
         var estacionamento = new Patio();
         veiculo.Proprietario = "André Silva";
         veiculo.Tipo = TipoVeiculo.Automovel;
@@ -41,7 +51,6 @@ public class PatioTestes
     {
         // Arrange
         var estacionamento = new Patio();
-        var veiculo = new Veiculo();
         veiculo.Proprietario = proprietario;
         veiculo.Placa = placa;
         veiculo.Cor = cor;
@@ -68,7 +77,6 @@ public class PatioTestes
     {
         // Arrange
         var estacionamento = new Patio();
-        var veiculo = new Veiculo();
         veiculo.Proprietario = proprietario;
         veiculo.Placa = placa;
         veiculo.Cor = cor;
@@ -86,7 +94,6 @@ public class PatioTestes
     [Fact]
     public void AlterarDadosDoProprioVeiculo()
     {
-        var veiculo = new Veiculo();
         var estacionamento = new Patio();
         veiculo.Proprietario = "André Silva";
         veiculo.Tipo = TipoVeiculo.Automovel;
@@ -103,5 +110,10 @@ public class PatioTestes
         veiculoAterado.Placa = "asd-9999";
 
         Veiculo alterado = estacionamento.AlteraDadosVeiculo(veiculoAterado);
+    }
+
+    public void Dispose()
+    {
+        SaidaConsoleTeste.WriteLine("Dispose invocado ...");
     }
 }
