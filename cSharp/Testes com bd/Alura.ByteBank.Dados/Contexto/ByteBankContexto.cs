@@ -4,21 +4,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Alura.ByteBank.Dados.Contexto
 {
-    public class ByteBankContexto:DbContext
+    public class ByteBankContexto : DbContext
     {
         public DbSet<ContaCorrente> ContaCorrentes { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Agencia> Agencias { get; set; }
-       
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string stringconexao = "server=localhost;DataBase=bytebankBD;Uid=root;Pwd=root";
+            string stringconexao = "server=localhost;DataBase=bytebankBD;Uid=root;Pwd=123456";
             optionsBuilder.UseMySql(stringconexao, ServerVersion.AutoDetect(stringconexao));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
             modelBuilder.Entity<Cliente>(entity =>
             {
                 entity.ToTable("cliente");
@@ -26,7 +25,7 @@ namespace Alura.ByteBank.Dados.Contexto
                 entity.Property(e => e.Nome).IsRequired();
                 entity.Property(e => e.Identificador);
                 entity.Property(e => e.Profissao).IsRequired();
-                entity.Property(e => e.CPF).IsRequired();               
+                entity.Property(e => e.CPF).IsRequired();
             });
 
             modelBuilder.Entity<Agencia>(entity =>
@@ -37,7 +36,6 @@ namespace Alura.ByteBank.Dados.Contexto
                 entity.Property(e => e.Endereco);
                 entity.Property(e => e.Identificador);
                 entity.Property(e => e.Nome).IsRequired();
-                
             });
 
             modelBuilder.Entity<ContaCorrente>(entity =>
@@ -51,9 +49,8 @@ namespace Alura.ByteBank.Dados.Contexto
                 entity.HasOne(d => d.Cliente).WithMany(p => p.Contas);
                 entity.HasOne(d => d.Agencia).WithMany(p => p.Contas);
             });
-            
+
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }
