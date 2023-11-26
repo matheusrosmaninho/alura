@@ -40,4 +40,22 @@ public class VeiculoTestes
         // Then
         Assert.Equal(TipoVeiculo.Automovel, veiculo.Tipo);
     }
+
+    [Fact]
+    public void DadosVeiculo()
+    {
+        // Arrange
+        var carro = new Veiculo();
+        carro.Proprietario = "Carlos Silva";
+        carro.Tipo = TipoVeiculo.Automovel;
+        carro.Placa = "qwe-1234";
+        carro.Cor = "Verde";
+        carro.Modelo = "Variance";
+
+        // Act
+        string dados = carro.ToString();
+
+        // Assert
+        Assert.Contains("Ficha do Veículo", dados);
+    }
 }
