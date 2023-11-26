@@ -61,6 +61,29 @@ public class VeiculoTestes : IDisposable
         Assert.Contains("Ficha do Veículo", dados);
     }
 
+    [Fact]
+    public void TestaNomeProprietarioComMenosDeTresCaracteres()
+    {
+        // Arrange
+        string nomeProprietario = "ab";
+
+        // Assert
+        Assert.Throws<System.FormatException>(
+            // Act
+            () => new Veiculo(nomeProprietario)
+        );
+    }
+
+    [Fact]
+    public void TestaMensagemDeExcecaoDoQuartoCaracterDaPlaca()
+    {
+        string placa = "asdf8888";
+        var mensagem = Assert.Throws<System.FormatException>(
+            () => new Veiculo().Placa = placa
+        );
+        Assert.Equal("O 4° caractere deve ser um hífen", mensagem.Message);
+    }
+
     public void Dispose()
     {
         SaidaConsoleTeste.WriteLine("Dispose invocado ...");
