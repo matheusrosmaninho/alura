@@ -98,7 +98,10 @@ namespace Alura.Estacionamento.Modelos
 
         public void AlterarDados(Veiculo veiculoAterado)
         {
-            throw new NotImplementedException();
+            this.Proprietario = veiculoAterado.Proprietario;
+            this.Modelo = veiculoAterado.Modelo;
+            this.Largura = veiculoAterado.Largura;
+            this.Cor = veiculoAterado.Cor;
         }
     }
 }
