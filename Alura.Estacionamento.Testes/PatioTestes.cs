@@ -6,7 +6,7 @@ namespace Alura.Estacionamento.Testes;
 public class PatioTestes
 {
     [Fact]
-    public void ValidaFaturamento()
+    public void ValidaFaturamentoDoEstacionamentoComVeiculo()
     {
         // Given
         var veiculo = new Veiculo();
@@ -32,7 +32,7 @@ public class PatioTestes
     [InlineData("José Silva", "pol-0000", "preto", "Fusca")]
     [InlineData("Mariana Silva", "prl-9090", "vermelha", "Mercedes")]
     [InlineData("Pedro Silva", "prl-9090", "vermelha", "Mercedes")]
-    public void ValidaFaturamentoComVariosVeiculos(
+    public void ValidaFaturamentoDoEstacionamentoComVariosVeiculos(
         string proprietario,
         string placa,
         string cor,
@@ -57,19 +57,9 @@ public class PatioTestes
         Assert.Equal(2, faturamento);
     }
 
-    [Fact(Skip = "Teste ainda não implementado")]
-    public void ValidaNomeProprietario()
-    {
-        // Given
-
-        // When
-
-        // Then
-    }
-
     [Theory]
     [InlineData("André Silva", "ASD-1498", "preto", "Gol")]
-    public void LocalizaVeiculoNoPatio(
+    public void LocalizaVeiculoNoPatioBaseadoNaPlaca(
         string proprietario,
         string placa,
         string cor,
@@ -94,7 +84,7 @@ public class PatioTestes
     }
 
     [Fact]
-    public void AlterarDadosVeiculo()
+    public void AlterarDadosDoProprioVeiculo()
     {
         var veiculo = new Veiculo();
         var estacionamento = new Patio();
