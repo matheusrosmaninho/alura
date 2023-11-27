@@ -24,4 +24,20 @@ public class ClienteRepositorioTestes
         List<Cliente> lista = _repositorio.ObterTodos();
         Assert.NotNull(lista);
     }
+
+    [Fact]
+    public void TestaObterClientePorId()
+    {
+        var cliente = _repositorio.ObterPorId(1);
+        Assert.NotNull(cliente);
+    }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    public void TestaObterClientesPorVariosId(int id)
+    {
+        var cliente = _repositorio.ObterPorId(id);
+        Assert.NotNull(cliente);
+    }
 }
