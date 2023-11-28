@@ -74,22 +74,6 @@ public class AgenciaRepositorioTestes
         Assert.True(atualizado);
     }
 
-
-    // Testes com Mock
-    [Fact]
-    public void TestaObterAgenciasMock()
-    {
-        //Arange
-        var bytebankRepositorioMock = new Mock<IByteBankRepositorio>();
-        var mock = bytebankRepositorioMock.Object;
-
-        //Act
-        var lista = mock.BuscarAgencias();
-
-        //Assert
-        bytebankRepositorioMock.Verify(b => b.BuscarAgencias());
-    }
-
     [Fact]
     public void TestaAdiconarAgenciaMock()
     {
@@ -124,5 +108,32 @@ public class AgenciaRepositorioTestes
     {
         var teste = _repositorio.ObterPorId(33);
         Assert.Null(teste);
+    }
+
+    [Fact]
+    public void TestaAdicionarAgenciaMock()
+    {
+        var agencia = new Agencia()
+        {
+            Nome = "Agencia amaral",
+            Identificador = Guid.NewGuid(),
+            Id = 4,
+            Endereco = "Rua Mariakkkkkkkkkkkkkkkkkkkkkkk",
+            Numero = 12345
+        };
+
+        var repositorioMock = new ByteBankRepositorio();
+        var adicionado = repositorioMock.AdicionarAgencia(agencia);
+        Assert.True(adicionado);
+    }
+
+    [Fact]
+    public void TestaObterAgenciasMock()
+    {
+        var bytebankRepositorioMock = new Mock<IByteBankRepositorio>();
+        var mock = bytebankRepositorioMock.Object;
+
+        var lista = mock.BuscarAgencias();
+        bytebankRepositorioMock.Verify(b => b.BuscarAgencias());
     }
 }
