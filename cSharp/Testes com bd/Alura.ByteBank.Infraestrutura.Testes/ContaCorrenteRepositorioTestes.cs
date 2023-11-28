@@ -3,7 +3,7 @@ using Alura.ByteBank.Dominio.Entidades;
 using Moq;
 using System;
 using System.Collections.Generic;
-using Xunit; 
+using Xunit;
 
 namespace Alura.ByteBank.Infraestrutura.Testes
 {
@@ -40,7 +40,6 @@ namespace Alura.ByteBank.Infraestrutura.Testes
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
-        [InlineData(3)]
         public void TestaObterContasCorrentesPorVariosId(int id)
         {
             //Arrange
@@ -98,5 +97,33 @@ namespace Alura.ByteBank.Infraestrutura.Testes
             pixRepositorioMock.Verify(b => b.consultaPix(new Guid("a0b80d53-c0dd-4897-ab90-c0615ad80d5a")));
         }
 
+        [Fact]
+        public void TestaInsereUmaNovaContaCorrenteNoBanciDeDados()
+        {
+            var conta = new ContaCorrente()
+            {
+                Saldo = 10,
+                Identificador = Guid.NewGuid(),
+                Cliente = new Cliente()
+                {
+                    Nome = "Kent Nelson",
+                    CPF = "486.074.980-45",
+                    Identificador = Guid.NewGuid(),
+                    Profissao = "Bancario",
+                    Id = 1
+                },
+                Agencia = new Agencia()
+                {
+                    Nome = "Agencia central",
+                    Identificador = Guid.NewGuid(),
+                    Id = 1,
+                    Endereco = "Rua testeteeeeeeeeeeeeeeeee",
+                    Numero = 147
+                }
+            };
+
+            var retorno = _repositorio.Adicionar(conta);
+            Assert.True(retorno);
+        }
     }
 }

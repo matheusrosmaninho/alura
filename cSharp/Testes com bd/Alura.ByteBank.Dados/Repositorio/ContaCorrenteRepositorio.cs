@@ -8,37 +8,41 @@ using System.Linq;
 
 namespace Alura.ByteBank.Dados.Repositorio
 {
-    public class ContaCorrenteRepositorio: IContaCorrenteRepositorio
+    public class ContaCorrenteRepositorio : IContaCorrenteRepositorio
     {
         private readonly ByteBankContexto _contexto;
+
         public ContaCorrenteRepositorio()
         {
             _contexto = new ByteBankContexto();
         }
+
         public bool Adicionar(ContaCorrente conta)
         {
             try
-            {    //https://docs.microsoft.com/pt-br/ef/core/change-tracking/identity-resolution            
+            {
+                //https://docs.microsoft.com/pt-br/ef/core/change-tracking/identity-resolution
                 _contexto.ContaCorrentes.Update(conta);
                 _contexto.SaveChanges();
 
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception(ex.InnerException.Message);                
+                throw new Exception(ex.Message);
+//                throw new Exception(ex.InnerException.Message);
             }
         }
 
         public bool Atualizar(int id, ContaCorrente conta)
         {
-
             try
             {
                 if (id != conta.Id)
                 {
                     return false;
                 }
+
                 _contexto.Entry(conta).State = EntityState.Modified;
                 _contexto.SaveChanges();
                 return true;
@@ -59,6 +63,7 @@ namespace Alura.ByteBank.Dados.Repositorio
                 {
                     return false;
                 }
+
                 _contexto.ContaCorrentes.Remove(conta);
                 _contexto.SaveChanges();
                 return true;
@@ -74,11 +79,12 @@ namespace Alura.ByteBank.Dados.Repositorio
             try
             {
                 var conta = _contexto.ContaCorrentes.Include(c => c.Cliente)
-                                                    .Include(x => x.Agencia).FirstOrDefault(p => p.Id == id);
+                    .Include(x => x.Agencia).FirstOrDefault(p => p.Id == id);
                 if (conta == null)
                 {
                     return null;
                 }
+
                 return conta;
             }
             catch
@@ -91,12 +97,13 @@ namespace Alura.ByteBank.Dados.Repositorio
         {
             try
             {
-                var conta = _contexto.ContaCorrentes.Include(c=>c.Cliente)
-                                                    .Include(x=>x.Agencia).FirstOrDefault(p => p.Identificador == guid);
+                var conta = _contexto.ContaCorrentes.Include(c => c.Cliente)
+                    .Include(x => x.Agencia).FirstOrDefault(p => p.Identificador == guid);
                 if (conta == null)
                 {
                     return null;
                 }
+
                 return conta;
             }
             catch
@@ -104,12 +111,13 @@ namespace Alura.ByteBank.Dados.Repositorio
                 throw new Exception($"Erro ao obter conta com Guid = {guid}.");
             }
         }
+
         public List<ContaCorrente> ObterTodos()
         {
             try
             {
                 return _contexto.ContaCorrentes.Include(c => c.Cliente)
-                                               .Include(x => x.Agencia).ToList();
+                    .Include(x => x.Agencia).ToList();
             }
             catch
             {
