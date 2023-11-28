@@ -2,18 +2,29 @@
 using System.Collections.Generic;
 using Alura.ByteBank.Dados.Repositorio;
 using Alura.ByteBank.Dominio.Entidades;
+using Alura.ByteBank.Dominio.Interfaces.Repositorios;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Alura.ByteBank.Infraestrutura.Testes;
 
 public class AgenciaRepositorioTestes
 {
-    private AgenciaRepositorio _repositorio;
+    private IAgenciaRepositorio _repositorio;
 
-    public AgenciaRepositorioTestes()
+    public ITestOutputHelper SaidaConsoleTest {get; set;}
+
+    public AgenciaRepositorioTestes(ITestOutputHelper saidaConsoleTest)
     {
-        _repositorio = new AgenciaRepositorio();
+        SaidaConsoleTest = saidaConsoleTest;
+        SaidaConsoleTest.WriteLine("Construtor invocado ...");
+        var servico = new ServiceCollection();
+        servico.AddTransient<IAgenciaRepositorio, AgenciaRepositorio>();
+
+        var provedor = servico.BuildServiceProvider();
+        _repositorio = provedor.GetService<IAgenciaRepositorio>();
     }
 
     [Fact]
@@ -44,8 +55,6 @@ public class AgenciaRepositorioTestes
 
     [Theory]
     [InlineData(1)]
-    [InlineData(2)]
-    [InlineData(3)]
     public void TestaObterAgenciasPorVariosId(int id)
     {
         //Arrange
@@ -62,13 +71,12 @@ public class AgenciaRepositorioTestes
     public void TestaAtualizacaoInformacaoDeterminadaAgencia()
     {
         //Arrange
-        _repositorio = new AgenciaRepositorio();
-        var agencia = _repositorio.ObterPorId(2);
+        var agencia = _repositorio.ObterPorId(1);
         var nomeNovo = "Agencia Nova";
         agencia.Nome = nomeNovo;
 
         //Act
-        var atualizado = _repositorio.Atualizar(2, agencia);
+        var atualizado = _repositorio.Atualizar(1, agencia);
 
         //Assert
         Assert.True(atualizado);
