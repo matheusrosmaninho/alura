@@ -8,7 +8,7 @@ class Program
 //        Console.WriteLine("Pressione enter");
 //        Console.ReadLine();
 
-        ListandoDocumentosFiltroBson.MainProgramAsync(args);
+        ListandoDocumentosFiltroClasse.MainProgramAsync(args);
     }
 
     private static void MainSync(string[] args)
