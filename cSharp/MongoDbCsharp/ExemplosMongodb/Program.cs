@@ -8,7 +8,7 @@ class Program
 //        Console.WriteLine("Pressione enter");
 //        Console.ReadLine();
 
-        ManipulandoDocumentos.MainProgramAsync(args);
+        AcessandoMongodb.MainProgramAsync(args);
     }
 
     private static void MainSync(string[] args)
