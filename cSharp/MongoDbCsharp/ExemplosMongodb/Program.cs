@@ -8,7 +8,7 @@ class Program
 //        Console.WriteLine("Pressione enter");
 //        Console.ReadLine();
 
-        AlterandoDocumento.MainProgramAsync(args);
+        AlterandoDocumentoClasse.MainProgramAsync(args);
     }
 
     private static void MainSync(string[] args)
