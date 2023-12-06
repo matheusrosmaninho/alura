@@ -47,7 +47,7 @@ public class ListandoDocumentosFiltroClasse
         construtor = Builders<Livro>.Filter;
         condicao = construtor.AnyEq(x => x.Assunto, "Ficção Científica");
 
-        lista = await conexao.Livros.Find(condicao).ToListAsync();
+        lista = await conexao.Livros.Find(condicao).SortBy(x => x.Titulo).ToListAsync();
         foreach (var doc in lista)
         {
             Console.WriteLine(doc.ToJson());
